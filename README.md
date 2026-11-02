@@ -12,7 +12,7 @@ desktop 100 / 100 / 100 / 100. CLS 0. Scroll holds 60 fps (p95 frame 16.9 ms) in
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
+npm run dev    
 npm run build      # type-check, bundle, then pre-render the hero into dist/index.html
 npm run preview    # serve dist/ at http://localhost:4173 (test performance here, not in dev)
 ```
