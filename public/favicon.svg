@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- AK console mark: a lime cursor block on the console ground. -->
+  <rect width="64" height="64" fill="#0b0f0a"/>
+  <rect x="14" y="14" width="16" height="36" fill="#c5f738"/>
+  <rect x="36" y="38" width="14" height="12" fill="#f0f1e8"/>
+  <style>@media (prefers-color-scheme: light){rect:first-child{fill:#e8f2f9}rect:nth-child(2){fill:#0559d2}rect:nth-child(3){fill:#0b2353}}</style>
+</svg>

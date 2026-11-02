@@ -1,0 +1,219 @@
+/*
+ * tokens.css: every colour, face, size, space and motion value on the site.
+ * Nothing outside this file names a literal colour or font-family.
+ *
+ * Two designed themes, not an inversion:
+ *  - "Console" (dark, default): phosphor-tinted night, acid-lime signal, sodium-amber second signal.
+ *  - "Blueprint" (light): drafting film, prussian ink, cobalt line work, red-pencil second signal.
+ */
+
+/* ---------- Faces (self-hosted; rebuilt by scripts/fonts.py) ---------- */
+/*
+ * Archivo Hero: only the glyphs on the pre-rendered first screen (~21 KB), preloaded so the name and
+ * lede paint in the real face fast. Listed first in the stack; any other character falls through to
+ * the full Archivo face below (same design, so the mix is invisible).
+ */
+@font-face {
+  font-family: 'Archivo Hero';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 240 800;
+  font-stretch: 82% 125%;
+  src: url('/fonts/archivo-hero.woff2') format('woff2-variations');
+  unicode-range: U+20,U+2C,U+2D,U+2E,U+30,U+34,U+37,U+40,U+41,U+43,U+44,U+45,U+49,U+4A,U+4B,U+4D,U+4F,U+52,U+53,U+54,U+57,U+61,U+62,U+63,U+64,U+65,U+66,U+67,U+68,U+69,U+6B,U+6C,U+6D,U+6E,U+6F,U+70,U+71,U+72,U+73,U+74,U+75,U+76,U+77,U+78,U+79,U+E9;
+}
+@font-face {
+  font-family: 'Archivo Variable';
+  font-style: normal;
+  font-display: swap;
+  /* Subset to the characters the site uses; axes trimmed to the ranges it uses. */
+  font-weight: 240 800;
+  font-stretch: 82% 125%;
+  src: url('/fonts/archivo-var.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Martian Mono Variable'; /* taste-skill-ignore: the brief sets data and labels in mono */
+  font-style: normal;
+  font-display: swap;
+  /* Static instance (weight 400, normal width): readouts never use another cut. */
+  font-weight: 400;
+  src: url('/fonts/martian-mono.woff2') format('woff2');
+}
+/* Metric-matched fallbacks so the swap never reflows the boot sequence. */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial');
+  size-adjust: 101%;
+  ascent-override: 87%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Martian Mono Fallback'; /* taste-skill-ignore: metric fallback for the mono data face */
+  src: local('Courier New');
+  size-adjust: 112%;
+  ascent-override: 85%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* ---------- Faces ---------- */
+  --font-display: 'Archivo Hero', 'Archivo Variable', 'Archivo Fallback', ui-sans-serif, sans-serif;
+  --font-body: 'Archivo Hero', 'Archivo Variable', 'Archivo Fallback', ui-sans-serif, sans-serif;
+  /* Outlier with one role: data, readouts and console text. */
+  /* taste-skill-ignore: brief asks for a mono data face; it carries readouts, never prose */
+  --font-outlier: 'Martian Mono Variable', 'Martian Mono Fallback', ui-monospace, monospace; /* taste-skill-ignore: mono data face, set by the brief */
+  --font-mono: var(--font-outlier); /* taste-skill-ignore: alias of the data face */
+
+  /* Display settings: expanded Archivo is the voice of the console. */
+  --display-wdth: 125;
+  --display-wght: 780;
+  --tracking-display: -0.035em;
+
+  /* ---------- Type scale (five visible sizes) ---------- */
+  --text-xs: 0.8125rem; /* 13px  mono readouts, captions */
+  --text-sm: 0.875rem; /* 14px  labels, chips */
+  --text-md: 1.0625rem; /* 17px  body */
+  --text-lg: 1.25rem;
+  --text-lead: clamp(1.125rem, 0.45vw + 1rem, 1.5rem);
+  --text-title: clamp(1.375rem, 1vw + 1rem, 2.125rem);
+  --text-section: clamp(2.125rem, 4.2vw + 0.5rem, 5rem);
+  --text-figure: clamp(4.5rem, 11vw, 10rem);
+  --text-display-s: clamp(2.75rem, 6vw, 6.5rem);
+  --text-display: clamp(2.75rem, 14.4vw, 15rem);
+
+  /* ---------- Space ---------- */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 144px;
+  --space-5xl: 200px;
+
+  --container: 1440px;
+  --gutter: 48px;
+  --gap-columns: 32px;
+  --section-gap-s: 120px;
+  --section-gap: 176px;
+  --section-gap-l: 232px;
+  --nav-h: 64px;
+
+  /* ---------- Shape ---------- */
+  --radius-control: 2px;
+  --radius-card: 2px;
+  --radius-pill: 999px;
+  --rule-hair: 1px;
+  --control-h: 48px;
+
+  /* ---------- Motion (mirrors src/lib/motion.ts) ---------- */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-exit: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-in: var(--ease-exit);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-panel: 420ms;
+  --t-reveal: 800ms;
+  --t-open: 1200ms;
+  --dur-micro: var(--t-press);
+  --dur-short: var(--t-ui);
+  --dur-long: var(--t-panel);
+
+  /* ---------- Layers ---------- */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-sticky-nav: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-cursor: 700;
+}
+
+/* ---------- Console (dark, default) ---------- */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-paper: oklch(14.2% 0.011 145);
+  --color-paper-2: oklch(17.8% 0.013 145);
+  --color-paper-3: oklch(22% 0.015 145);
+  --color-ink: oklch(95.5% 0.012 115);
+  --color-ink-2: oklch(79% 0.016 125);
+  --color-muted: oklch(62% 0.016 135);
+  --color-rule: oklch(26% 0.016 145);
+  --color-rule-strong: oklch(34% 0.018 140);
+
+  --color-accent: oklch(91% 0.21 124);
+  --color-accent-ink: oklch(19% 0.05 124);
+  --color-focus: oklch(89% 0.2 124);
+  --color-signal: oklch(77% 0.165 60);
+  --color-signal-ink: oklch(20% 0.05 60);
+
+  --color-error: oklch(70% 0.17 28);
+  --color-success: var(--color-accent);
+
+  /* Overlays: alpha is used only for light, glow and grain. */
+  --color-glow: oklch(91% 0.21 124 / 0.22);
+  --color-glow-soft: oklch(91% 0.21 124 / 0.08);
+  --color-scrim: oklch(10% 0.01 145 / 0.72);
+  --color-shadow: oklch(5% 0.01 145 / 0.55);
+  --grain-opacity: 0.045;
+  --grid-opacity: 0.55;
+}
+
+/* ---------- Blueprint (light) ---------- */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-paper: oklch(95.6% 0.014 238);
+  --color-paper-2: oklch(92.4% 0.02 240);
+  --color-paper-3: oklch(88.6% 0.028 242);
+  --color-ink: oklch(26% 0.09 258);
+  --color-ink-2: oklch(39% 0.075 256);
+  --color-muted: oklch(50% 0.06 250);
+  --color-rule: oklch(84% 0.04 242);
+  --color-rule-strong: oklch(76% 0.06 245);
+
+  --color-accent: oklch(50% 0.2 260);
+  --color-accent-ink: oklch(97% 0.012 238);
+  --color-focus: oklch(50% 0.2 260);
+  --color-signal: oklch(55% 0.19 33);
+  --color-signal-ink: oklch(97% 0.01 33);
+
+  --color-error: oklch(52% 0.19 27);
+  --color-success: var(--color-accent);
+
+  --color-glow: oklch(50% 0.2 260 / 0.16);
+  --color-glow-soft: oklch(50% 0.2 260 / 0.06);
+  --color-scrim: oklch(30% 0.06 255 / 0.4);
+  --color-shadow: oklch(26% 0.09 258 / 0.18);
+  --grain-opacity: 0.035;
+  --grid-opacity: 1;
+}
+
+@media (max-width: 60rem) {
+  :root {
+    --gutter: 24px;
+    --section-gap-s: 88px;
+    --section-gap: 120px;
+    --section-gap-l: 152px;
+  }
+}
+@media (max-width: 40rem) {
+  :root {
+    --gutter: 16px;
+    --section-gap-s: 64px;
+    --section-gap: 96px;
+    --section-gap-l: 120px;
+    --gap-columns: 16px;
+    --nav-h: 56px;
+  }
+}

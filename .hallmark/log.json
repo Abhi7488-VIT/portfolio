@@ -1,0 +1,33 @@
+[
+ {
+  "shape": "console run",
+  "theme": "custom",
+  "axes": "dark/grotesk-heavy/chromatic-lime",
+  "hero": "custom: name typed by a console boot, stepping across the full width over a live node field, status readout on the baseline",
+  "nav": "corner links and a CI pipeline rail",
+  "footer": "the email address set as the headline",
+  "imagery": "the product: instruments built from real numbers, live-demo captures",
+  "photos": [],
+  "entry": "masked line rise on the expo curve",
+  "fingerprint": "dark/expanded-grotesk/lime+amber/full-bleed-name/instrument-bays/email-footer",
+  "sections": [
+   "hero",
+   "about",
+   "work",
+   "experience",
+   "skills",
+   "extras",
+   "contact",
+   "footer"
+  ],
+  "signature": "the boot sequence typing the name over a node field that answers the cursor",
+  "waived": [
+   "64",
+   "29",
+   "47c"
+  ],
+  "prompt": "Mission Control for a Builder: portfolio for Abhishek Kumar, AI + data engineer, VIT Vellore 2027",
+  "date": "2026-11-02",
+  "mode": "build"
+ }
+]

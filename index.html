@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- %TOKENS% are filled from src/content/content.ts by seo.plugin.ts at build time. -->
+    <title>%SEO_TITLE%</title>
+    <meta name="description" content="%SEO_DESCRIPTION%" />
+    <meta name="author" content="Abhishek Kumar" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <meta name="theme-color" content="%THEME_COLOR%" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Abhishek Kumar" />
+    <meta property="og:title" content="%SEO_TITLE%" />
+    <meta property="og:description" content="%SEO_DESCRIPTION%" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%OG_IMAGE%" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="%OG_IMAGE_ALT%" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="profile:first_name" content="Abhishek" />
+    <meta property="profile:last_name" content="Kumar" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="%SEO_TITLE%" />
+    <meta name="twitter:description" content="%SEO_DESCRIPTION%" />
+    <meta name="twitter:image" content="%OG_IMAGE%" />
+    <meta name="twitter:image:alt" content="%OG_IMAGE_ALT%" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Only the first screen's glyphs are preloaded (~21 KB): they carry the name and the LCP. -->
+    <link rel="preload" href="/fonts/archivo-hero.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Apply the saved theme and motion preference before first paint (no flash). -->
+    <script>
+      ;(function () {
+        var d = document.documentElement
+        try {
+          var t = localStorage.getItem('ak-theme')
+          if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t)
+          var m = localStorage.getItem('ak-motion')
+          if (m === 'reduced' || m === 'full') d.setAttribute('data-motion', m)
+        } catch (e) {}
+        d.classList.add('js')
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px">
+        Abhishek Kumar, AI and data engineer. This portfolio needs JavaScript for its interactive parts.
+        <a href="/Abhishek_Kumar_Resume.pdf">Download the résumé</a> or email abhishekkumarr07044@gmail.com.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

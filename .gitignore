@@ -1,0 +1,12 @@
+node_modules
+dist
+*.local
+*.tsbuildinfo
+
+# Design-check artefacts (screenshots and run records). .hallmark/log.json is kept on purpose.
+.taste-skill
+.hallmark/shots
+.hallmark/before
+.hallmark/before.*
+.hallmark/preflight.json
+.hallmark/compare.html

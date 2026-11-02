@@ -1,0 +1,306 @@
+/* Site chrome: nav, menu sheet, magnetic wrapper, custom cursor. */
+@layer components {
+  /* ---------- Magnetic wrapper: a slightly larger catch area than the control ---------- */
+  .magnetic {
+    display: inline-block;
+    padding: var(--space-sm);
+    margin: calc(var(--space-sm) * -1);
+  }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: var(--z-sticky-nav);
+    transition: transform var(--t-panel) var(--ease-out);
+  }
+  .nav[data-hidden='true'] {
+    transform: translateY(-110%);
+  }
+  .nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-paper);
+    opacity: 0;
+    transition: opacity var(--t-panel) var(--ease-out);
+  }
+  .nav[data-solid]::before {
+    opacity: 0.94;
+  }
+  .nav__inner {
+    position: relative;
+    z-index: 2; /* above the menu sheet, so Close stays reachable */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    min-height: var(--nav-h);
+  }
+  .nav__links ul {
+    display: flex;
+    gap: var(--space-2xs);
+    list-style: none;
+  }
+  .nav__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--space-sm);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--color-ink-2);
+    text-decoration: none;
+    transition: color var(--t-hover) var(--ease-out);
+  }
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    left: var(--space-sm);
+    right: var(--space-sm);
+    bottom: var(--space-xs);
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-ui) var(--ease-out);
+  }
+  .nav__link:hover,
+  .nav__link[aria-current='true'] {
+    color: var(--color-ink);
+  }
+  .nav__link:hover::after {
+    transform: scaleX(0.35);
+  }
+  .nav__link[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .nav__menu-wrap {
+    display: none;
+  }
+  @media (max-width: 60rem) {
+    .nav__links,
+    .nav__toggles {
+      display: none;
+    }
+    .nav__menu-wrap {
+      display: inline-block;
+    }
+  }
+
+  /* ---------- Menu sheet ---------- */
+  .menu-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: calc(var(--nav-h) + var(--space-2xl)) var(--gutter) var(--space-xl);
+    background: var(--color-paper-2);
+    animation: sheet-in var(--t-reveal) var(--ease-in-out) both;
+  }
+  .menu-sheet[data-closing] {
+    animation: sheet-out 480ms var(--ease-in-out) both;
+  }
+  @keyframes sheet-in {
+    from {
+      clip-path: circle(0% at calc(100% - 48px) 32px);
+    }
+    to {
+      clip-path: circle(150% at calc(100% - 48px) 32px);
+    }
+  }
+  @keyframes sheet-out {
+    from {
+      clip-path: circle(150% at calc(100% - 48px) 32px);
+    }
+    to {
+      clip-path: circle(0% at calc(100% - 48px) 32px);
+    }
+  }
+  .menu-sheet__list li {
+    animation: rise-in var(--t-reveal) var(--ease-expo) both;
+    animation-delay: calc(180ms + var(--i, 0) * 70ms);
+  }
+  .menu-sheet__foot {
+    animation: fade-in var(--t-ui) var(--ease-out) 500ms both;
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  .menu-sheet__list {
+    list-style: none;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  .menu-sheet__link {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 11vw, 4.5rem);
+    font-variation-settings:
+      'wdth' 118,
+      'wght' 780;
+    font-weight: 780;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: color var(--t-hover) var(--ease-out);
+  }
+  .menu-sheet__link:hover,
+  .menu-sheet__link[aria-current='true'] {
+    color: var(--color-accent);
+  }
+  .menu-sheet .switch__name {
+    display: inline;
+  }
+  .menu-sheet__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  /* ---------- Cursor (fine pointers, full motion only) ---------- */
+  .has-cursor,
+  .has-cursor * {
+    cursor: none !important;
+  }
+  .has-cursor input,
+  .has-cursor textarea,
+  .has-cursor [contenteditable='true'] {
+    cursor: text !important;
+  }
+  .cursor {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-cursor);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--t-ui) var(--ease-out);
+  }
+  .cursor[data-visible='true'] {
+    opacity: 1;
+  }
+  .cursor[data-mode='text'] {
+    opacity: 0;
+  }
+  .cursor__dot,
+  .cursor__ring,
+  .cursor__trail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+  }
+  .cursor__dot::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    translate: -50% -50%;
+    background: var(--color-accent);
+  }
+  .cursor__trail::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    translate: -50% -50%;
+    background: var(--color-accent);
+    opacity: calc(0.5 - var(--i) * 0.075);
+  }
+  .cursor__ring-shape {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    translate: -50% -50%;
+    border: 1.5px solid var(--color-ink-2);
+    border-radius: 50%;
+    transition:
+      transform var(--t-ui) var(--ease-out),
+      background-color var(--t-ui) var(--ease-out),
+      border-color var(--t-ui) var(--ease-out),
+      opacity var(--t-hover) var(--ease-out);
+  }
+  .cursor[data-mode='link'] .cursor__ring-shape {
+    transform: scale(1.7);
+    border-color: var(--color-accent);
+    background: var(--color-glow-soft);
+  }
+  .cursor[data-pressed] .cursor__ring-shape {
+    transform: scale(0.8);
+  }
+  .cursor[data-mode='link'][data-pressed] .cursor__ring-shape {
+    transform: scale(1.4);
+  }
+  .cursor__cross {
+    position: absolute;
+    transform: scale(0.6) rotate(45deg);
+    transition:
+      opacity var(--t-hover) var(--ease-out),
+      transform var(--t-ui) var(--ease-out);
+  }
+  .cursor__cross::before,
+  .cursor__cross::after {
+    content: '';
+    position: absolute;
+    background: var(--color-accent);
+  }
+  .cursor__cross::before {
+    width: 28px;
+    height: 1.5px;
+    translate: -50% -50%;
+  }
+  .cursor__cross::after {
+    width: 1.5px;
+    height: 28px;
+    translate: -50% -50%;
+  }
+  .cursor[data-mode='data'] .cursor__cross {
+    opacity: 1;
+    transform: none;
+  }
+  .js .cursor[data-mode='data'] .cursor__ring-shape {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  .cursor__label {
+    position: absolute;
+    transform: translate(-50%, -50%) scale(0.6);
+    color: var(--color-accent-ink);
+    transition:
+      opacity var(--t-hover) var(--ease-out),
+      transform var(--t-ui) var(--ease-out);
+  }
+  .cursor[data-mode='drag'] .cursor__ring-shape {
+    transform: scale(1.9);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  /* Parts that only exist per mode; hidden only once the script runs (the cursor itself is script-made). */
+  .js .cursor__cross,
+  .js .cursor__label {
+    opacity: 0;
+  }
+  .cursor[data-mode='drag'] .cursor__label {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
